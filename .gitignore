@@ -3,3 +3,4 @@ backend/.env
 backend/node_modules
 codespeak/node_modules
 backend/app.yaml
+backend/.gcloudignore
