@@ -7,6 +7,8 @@ import OutputDisplay from './components/OutputDisplay';
 import { AuthContext } from "./contexts/AuthContext";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import TokenDisplay from './components/TokenDisplay';
+import TokenUsage from './components/TokenUsage';
 import './css/App.css';
 
 // Import the language features from Monaco Editor that we want to support
@@ -75,7 +77,7 @@ const App: React.FC = () => {
   const handleButtonClick = () => {
     if(submitting) return;
     setSubmitting(true);
-    fetch('/submit', {
+    fetch('http://localhost:3001/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -85,7 +87,6 @@ const App: React.FC = () => {
       .then(response => response.json())
       .then(data => {
         setResult(data.message);
-        console.log(data.message);
         setSubmitting(false);
       })
       .catch(error => {
@@ -94,11 +95,6 @@ const App: React.FC = () => {
       });
   };
 
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
-  
-
   return (
     <div className="App">
       <Logo src="logo.png" />
@@ -106,6 +102,7 @@ const App: React.FC = () => {
         <>
         <div className="fadeIn">
           <Logout />
+          <TokenDisplay />
           <div className="headingAndSelector">
             <h2 className="languageTitle">🗣️ Language</h2>
             <LanguageSelector
@@ -115,6 +112,7 @@ const App: React.FC = () => {
             />
           </div>
           <CodeEditor value={code} onChange={handleCodeChange} language={language.value} height={`300px`} loading={submitting} />
+          <TokenUsage code={code} />
           <SubmitButton onClick={handleButtonClick} />
           <OutputDisplay result={result} />
         </div>

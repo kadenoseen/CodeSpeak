@@ -5,6 +5,15 @@ import cors from 'cors';
 import { Configuration, OpenAIApi } from 'openai';
 import { config } from 'dotenv';
 import path from 'path';
+import * as admin from 'firebase-admin';
+import serviceAccount from './service-account.json';
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
+  databaseURL: "https://codespeak-387722-default-rtdb.firebaseio.com"
+});
+
+const db = admin.firestore();
 
 config();
 
@@ -58,6 +67,40 @@ app.post('/submit', async (req: Request<{}, {}, SubmitRequestBody>, res: Respons
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+
+// Database Functions
+
+// Add new user with 500 tokens
+app.post('/addUser', async (req: Request, res: Response) => {
+  const { uid } = req.body;
+  await db.collection('users').doc(uid).set({
+    tokens: 500
+  });
+  res.status(200).send({ message: "User added successfully" });
+});
+
+// Update user's tokens
+app.put('/updateUser', async (req: Request, res: Response) => {
+  const { uid, tokens } = req.body;
+  await db.collection('users').doc(uid).update({
+    tokens
+  });
+  res.status(200).send({ message: "User updated successfully" });
+});
+
+// Get user's tokens
+app.get('/getUser', async (req: Request, res: Response) => {
+  const { uid } = req.query;
+  const userRef = db.collection('users').doc(uid as string);
+  const userDoc = await userRef.get();
+  if (!userDoc.exists) {
+    res.status(404).send({ message: "User not found" });
+  } else {
+    res.status(200).send(userDoc.data());
+  }
+});
+
 
 async function translateCode(code: string, language: string): Promise<string> {
   
