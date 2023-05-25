@@ -2,7 +2,7 @@
 
 Created by Kaden Oseen
 
-CodeSpeak is a user-friendly web-based application that translates complex code into easy-to-understand English descriptions.
+CodeSpeak is an intuitive web-based application designed to convert inputted code into easy-to-understand language, helping both novice and experienced programmers better comprehend the functionality of their code. Users can select a programming language, input their code, and receive a human-readable interpretation of their code's logic.
 
 ## Table of Contents
 
@@ -81,4 +81,4 @@ Response
 1. Run `npm run build` on the frontend application.
 2. Move the `build` folder into the `backend` folder
 3. Run `npm run build` on the backend to ensure typescript code is compiled
-4. Deploy with an `app.yaml` file for Google App Engine, or use own deployment of `node dist/server.js` file as entrypoint.
+4. Deploy with an `app.yaml` file for Google App Engine, or use own deployment of `node dist/server.js` as entrypoint.
