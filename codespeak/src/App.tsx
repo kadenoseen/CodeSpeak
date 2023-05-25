@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import Logo from './Logo';
-import CodeEditor from './CodeEditor';
-import SubmitButton from './SubmitButton';
-import LanguageSelector from './LanguageSelector';
-import OutputDisplay from './OutputDisplay';
+import React, { useState, useContext, useEffect } from 'react';
+import Logo from './components/Logo';
+import CodeEditor from './components/CodeEditor';
+import SubmitButton from './components/SubmitButton';
+import LanguageSelector from './components/LanguageSelector';
+import OutputDisplay from './components/OutputDisplay';
+import { AuthContext } from "./contexts/AuthContext";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
 import './css/App.css';
 
 // Import the language features from Monaco Editor that we want to support
@@ -59,6 +62,7 @@ const App: React.FC = () => {
   const [language, setLanguage] = useState(languageOptions[0]); // By default javascript
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState('');
+  const { currentUser } = useContext(AuthContext);
 
   const handleCodeChange = (newCode: string) => {
     setCode(newCode);
@@ -90,22 +94,34 @@ const App: React.FC = () => {
       });
   };
 
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
+  
 
   return (
     <div className="App">
       <Logo src="logo.png" />
-      <div className="headingAndSelector">
-        <h2 className="languageTitle">🗣️ Language</h2>
-        <LanguageSelector
-          options={languageOptions}
-          value={language}
-          onChange={handleLanguageChange}
-        />
-      </div>
-
-      <CodeEditor value={code} onChange={handleCodeChange} language={language.value} height={`300px`} loading={submitting} />
-      <SubmitButton onClick={handleButtonClick} />
-      <OutputDisplay result={result} />
+      {currentUser ? (
+        <>
+        <div className="fadeIn">
+          <Logout />
+          <div className="headingAndSelector">
+            <h2 className="languageTitle">🗣️ Language</h2>
+            <LanguageSelector
+              options={languageOptions}
+              value={language}
+              onChange={handleLanguageChange}
+            />
+          </div>
+          <CodeEditor value={code} onChange={handleCodeChange} language={language.value} height={`300px`} loading={submitting} />
+          <SubmitButton onClick={handleButtonClick} />
+          <OutputDisplay result={result} />
+        </div>
+        </>
+      ) : (
+        <Login />
+      )}
     </div>
   );
 };

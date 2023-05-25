@@ -4,6 +4,7 @@
     margin-top: -10px;
     max-width: 350px;
     max-height: 350px;
+    user-select: none;
   }
   
   @media screen and (max-width: 500px) {
