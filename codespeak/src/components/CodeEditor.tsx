@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import MonacoEditor from 'react-monaco-editor';
+import React, { useState, useEffect } from 'react';
+import MonacoEditor, { EditorDidMount } from 'react-monaco-editor';
+import { editor as monacoEditor } from 'monaco-editor';
 import styles from '../css/CodeEditor.module.css';
 
 interface CodeEditorProps {
@@ -13,15 +14,31 @@ interface CodeEditorProps {
 const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange, language, height, loading }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isValueSet, setIsValueSet] = useState(false);
+  const [editorValue, setEditorValue] = useState(value);
+
+  const editorDidMount: EditorDidMount = (editor: monacoEditor.IStandaloneCodeEditor, monaco: any) => {
+    editor.onDidChangeModelContent((event: monacoEditor.IModelContentChangedEvent) => {
+      const newValue = editor.getValue();
+      const newTokenCount = Math.ceil((newValue.length / 3) + 350);
+  
+      if(newTokenCount > 6650) {
+        const trimmedValue = newValue.slice(0, (6650 - 350) * 3); // Trim the value to fit the limit
+        editor.setValue(trimmedValue);
+      } else {
+        setIsValueSet(newValue !== '');
+        setEditorValue(newValue);
+        onChange(newValue, event);
+      }
+    });
+  };
+  
+
+  useEffect(() => {
+    setEditorValue(value);
+  }, [value]);
 
   const handleClick = () => {
     setIsFocused(true);
-  };
-
-  const handleChange = (newValue: string, event: any) => {
-    if(newValue !== '') setIsValueSet(true);
-    else setIsValueSet(false);
-    onChange(newValue, event);
   };
 
   return (
@@ -39,8 +56,9 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange, language, heig
           height="100%"
           language={language}
           theme="vs"
-          value={value}
-          onChange={handleChange}
+          value={editorValue}
+          onChange={() => {}} // Make onChange a no-op
+          editorDidMount={editorDidMount}
           options={{
             scrollbar: {
               vertical: 'hidden',
@@ -55,4 +73,3 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange, language, heig
 };
 
 export default CodeEditor;
-

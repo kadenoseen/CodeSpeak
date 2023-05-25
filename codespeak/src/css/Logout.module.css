@@ -1,0 +1,36 @@
+.logoutButton {
+    position: fixed;
+    right: 35px;
+    top: 30px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #2cb2a5;
+    border-radius: 7px;
+    color: white;
+    font-size: 1.2em;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    backface-visibility: hidden; /* Add backface-visibility property */
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logoutButton:hover {
+    background-color: #29a195;
+    transform: scale(1.07);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/** media queries for devices lower than 500px width.
+ * Must reduce size of logout so that it is more in the top right corner */
+
+@media (max-width: 500px) {
+  .logoutButton {
+    top: 22px;
+    right: 10px;
+    height: 50px;
+    font-size: 16px;
+  }
+}
