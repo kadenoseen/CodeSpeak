@@ -1,6 +1,6 @@
 TODO
-backend/.env
-backend/node_modules
-codespeak/node_modules
-backend/app.yaml
-backend/.gcloudignore
+/backend/.env
+/backend/node_modules
+/codespeak/node_modules
+/backend/app.yaml
+/backend/.gcloudignore
