@@ -4,3 +4,4 @@ TODO
 /backend/app.yaml
 /backend/.gcloudignore
 /codespeak/node_modules
+.gitignore
