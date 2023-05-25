@@ -9,13 +9,13 @@ const TokenUsage: React.FC<TokenUsageProps> = ({ code }) => {
 
   useEffect(() => {
     // Update the token count when the code changes
-    const newTokenCount = Math.ceil(((code.length / 4) + 350 ) / 50);
+    const newTokenCount = Math.ceil(((code.length / 3) + 350 ) / 35);
     setTokenCount(newTokenCount);
   }, [code]);
 
   return (
     <div className="token-usage">
-      Token Usage: {tokenCount}
+      Token Usage: {tokenCount-10}/180 + 10
     </div>
   );
 };

@@ -4,8 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { auth, db } from '../contexts/AuthContext'; 
 import { ref, onValue, off } from "firebase/database";
 import styles from '../css/TokenDisplay.module.css';
+import { useMediaQuery } from '@mui/material';
 
-const TokenDisplay: React.FC = () => {
+
+interface TokenDisplayProps {
+  onClick: () => void;
+}
+
+const TokenDisplay: React.FC<TokenDisplayProps> = ({ onClick }) => {
   const [tokens, setTokens] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,6 +19,8 @@ const TokenDisplay: React.FC = () => {
   const currentUser = auth.currentUser; // Get the current user using Firebase's auth object
 
   const userRef = ref(db, `users/${currentUser?.uid}/tokens`);
+
+  const isSmallScreen = useMediaQuery('(max-width:500px)'); // This will be true if the screen width is 500px or less
 
   useEffect(() => {
     const handleData = (snap: any) => {
@@ -40,7 +48,7 @@ const TokenDisplay: React.FC = () => {
   if (loading) {
     return (
       <div className={styles.tokenDisplay}>
-        Balance: Loading...
+        Loading...
         <img src='token.png' alt="Token" className={styles.tokenImage} />
       </div>
     );
@@ -49,15 +57,15 @@ const TokenDisplay: React.FC = () => {
   if (error) {
     return (
       <div className={styles.tokenDisplay}>
-        Balance Error
+        Error
       </div>
     );
   }
 
   return (
-    <div className={styles.tokenDisplay}>
-      Balance: {tokens}
+    <div className={styles.tokenDisplay} onClick={onClick}>
       <img src='token.png' alt="Token" className={styles.tokenImage} />
+      {isSmallScreen ? "" : "Balance: "}{tokens}
     </div>
   )};
 

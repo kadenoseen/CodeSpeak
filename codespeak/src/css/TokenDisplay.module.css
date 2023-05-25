@@ -1,23 +1,57 @@
 .tokenDisplay {
-    position: fixed;
-    left: 20px;
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  font-size: 18px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  min-width: 150px;
+  transition: background-color 0.3s ease;
+}
+
+.tokenDisplay:hover {
+  background-color: #29a195;
+  cursor: pointer;
+  transform: scale(1.07);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tokenImage {
+  margin-bottom: 2px;
+  margin-right: 7px;
+  max-width: 25px;
+  max-height: 25px;
+  animation: rotate 3s infinite linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 360deg);
+  }
+}
+
+/** media queries for devices lower than 500px width.
+Must reduce size of tokenDisplay so that it is more in the top left corner */
+@media (max-width: 500px) {
+  .tokenDisplay {
     top: 20px;
-    padding: 10px;
-    background-color: #eee;
-    border-radius: 5px;
-    font-size: 18px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    min-width: 150px; 
+    left: 11px;
+    font-size: 16px;
+    height: 30px;
+    min-width: 60px;
+    
   }
-  
   .tokenImage {
-    margin-bottom: 2px;
-    margin-left: 5px;
-    max-width: 25px;
-    max-height: 25px;
+    margin-top: 3px;
   }
-  
+}

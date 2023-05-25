@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Logout from "./components/Logout";
 import TokenDisplay from './components/TokenDisplay';
 import TokenUsage from './components/TokenUsage';
+import TokenPurchaseModal from './components/TokenPurchaseModal';
 import './css/App.css';
 
 // Import the language features from Monaco Editor that we want to support
@@ -66,6 +67,16 @@ const App: React.FC = () => {
   const [result, setResult] = useState('');
   const { currentUser } = useContext(AuthContext);
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleTokenClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   const handleCodeChange = (newCode: string) => {
     setCode(newCode);
   };
@@ -75,14 +86,15 @@ const App: React.FC = () => {
   };
 
   const handleButtonClick = () => {
-    if(submitting) return;
+    if(submitting || code.length < 5) return;
+    console.log(currentUser?.uid);
     setSubmitting(true);
     fetch('http://localhost:3001/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code: code, language: language.value }),
+      body: JSON.stringify({ code: code, language: language.value, uid: currentUser?.uid }),
     })
       .then(response => response.json())
       .then(data => {
@@ -102,7 +114,8 @@ const App: React.FC = () => {
         <>
         <div className="fadeIn">
           <Logout />
-          <TokenDisplay />
+          <TokenDisplay onClick={handleTokenClick} />
+          <TokenPurchaseModal open={showModal} onClose={handleCloseModal} />
           <div className="headingAndSelector">
             <h2 className="languageTitle">🗣️ Language</h2>
             <LanguageSelector
@@ -112,8 +125,8 @@ const App: React.FC = () => {
             />
           </div>
           <CodeEditor value={code} onChange={handleCodeChange} language={language.value} height={`300px`} loading={submitting} />
-          <TokenUsage code={code} />
-          <SubmitButton onClick={handleButtonClick} />
+          {code? <TokenUsage code={code} /> : null}
+          {code? <SubmitButton onClick={handleButtonClick} /> : null}
           <OutputDisplay result={result} />
         </div>
         </>

@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,6 +42,13 @@ const cors_1 = __importDefault(require("cors"));
 const openai_1 = require("openai");
 const dotenv_1 = require("dotenv");
 const path_1 = __importDefault(require("path"));
+const admin = __importStar(require("firebase-admin"));
+const service_account_json_1 = __importDefault(require("./service-account.json"));
+admin.initializeApp({
+    credential: admin.credential.cert(service_account_json_1.default),
+    databaseURL: "https://codespeak-387722-default-rtdb.firebaseio.com"
+});
+const db = admin.firestore();
 (0, dotenv_1.config)();
 const port = process.env.PORT || 3001;
 const configuration = new openai_1.Configuration({
@@ -54,6 +84,35 @@ app.post('/submit', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });
+// Database Functions
+// Add new user with 500 tokens
+app.post('/addUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { uid } = req.body;
+    yield db.collection('users').doc(uid).set({
+        tokens: 500
+    });
+    res.status(200).send({ message: "User added successfully" });
+}));
+// Update user's tokens
+app.put('/updateUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { uid, tokens } = req.body;
+    yield db.collection('users').doc(uid).update({
+        tokens
+    });
+    res.status(200).send({ message: "User updated successfully" });
+}));
+// Get user's tokens
+app.get('/getUser', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { uid } = req.query;
+    const userRef = db.collection('users').doc(uid);
+    const userDoc = yield userRef.get();
+    if (!userDoc.exists) {
+        res.status(404).send({ message: "User not found" });
+    }
+    else {
+        res.status(200).send(userDoc.data());
+    }
+}));
 function translateCode(code, language) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
