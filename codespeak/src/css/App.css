@@ -1,0 +1,22 @@
+.App {
+  text-align: center;
+  padding: 40px 0;
+  background-color: #fffeff;
+}
+
+h2 {
+  font-size: 1.1em;
+  color: #333;
+  font-weight: 300;
+}
+
+.headingAndSelector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -20px;
+}
+
+.languageTitle {
+  margin-right: 10px;
+}
