@@ -4,6 +4,8 @@ Created by Kaden Oseen
 
 CodeSpeak is an intuitive web-based application designed to convert inputted code into easy-to-understand language, helping both novice and experienced programmers better comprehend the functionality of their code. Users can select a programming language, input their code, and receive a human-readable interpretation of their code's logic.
 
+![screenshot](./example.png)
+
 ## Table of Contents
 
 1. [Features](#features)
