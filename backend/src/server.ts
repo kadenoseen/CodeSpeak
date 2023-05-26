@@ -10,6 +10,7 @@ import path from 'path';
 import * as admin from 'firebase-admin';
 import serviceAccount from './service-account.json'; // get service account from service-account.json
 import { Stripe } from 'stripe';
+import { systemMessage } from './systemMessage';
 
 // Initialize Firebase Admin SDK with service account and database URL
 admin.initializeApp({
@@ -166,13 +167,6 @@ const configuration: Configuration = new Configuration({
 });
 
 const openai: OpenAIApi = new OpenAIApi(configuration);
-
-const systemMessage: string = "Transform code to spoken language, 'CodeSpeak'. \
-  For syntax, map basic operators to phrases: '==', 'if', 'for'. \
-  Name variables based on function: 'i' could be 'index'. \
-  Describe flow, hierarchy, and error handling using phrases. \
-  Use analogies for complex ideas rather than including code snippets.\
-  Ensure clarity and understanding. If no code is provided, tell a joke.";
 
 
 // Asynchronous function to translate code using OpenAI

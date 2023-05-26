@@ -1,4 +1,3 @@
-TODO
 /backend/.env
 /backend/node_modules
 /backend/app.yaml
@@ -6,3 +5,5 @@ TODO
 /codespeak/node_modules
 /backend/src/service-account.json
 /codespeak/src/contexts/FirebaseConfig.ts
+/backend/build
+/backend/src/systemMessage.ts
