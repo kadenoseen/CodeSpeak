@@ -20,12 +20,13 @@ CodeSpeak is an intuitive web-based application designed to convert inputted cod
 - **Powerful/Fast Mode Options:** Users can choose between powerful mode (pros: highest quality responses, cons: slower and uses more tokens) and fast mode (pros: fast and uses 5x less tokens, cons: lower quality output)
 - **Real-time Feedback:** Users receive a human-readable interpretation of their code's logic upon submission.
 - **Accounts:** Users can create an account, login and reset their password
-- **Tokens:** Users are provided with 200 tokens to start off with to test out the application
+- **Tokens:** Users are provided with 500 tokens to start off with to test out the application
 - **Payment Processing:** Users can purchase additional tokens to use in the application
+- **Automated Emails:** Emails sent to users upon registration, purchases, and to reset passwords
 
 ## Technology
 
-CodeSpeak is built with React and TypeScript, providing a responsive and dynamic user interface. Code editing is facilitated by the Monaco Editor, and custom styles are written with CSS modules.
+CodeSpeak is built with React and TypeScript, providing a responsive and dynamic user interface.
 
 ## Installation and Setup
 
