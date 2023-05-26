@@ -5,6 +5,13 @@
   animation: fadeIn 1s ease-in-out;
 }
 
+.title {
+  font-weight: 100;
+  font-size: 40px;
+  margin-top: -30px;
+  margin-bottom: 30px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -28,9 +35,21 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: -20px;
+  margin-bottom: 20px;
 }
 
 .languageTitle {
-  margin-right: 10px;
+  margin-right: 8px;
 }
+
+.headingAndSelector2 {
+  padding-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modeTitle {
+  margin-right: 8px;
+}
+

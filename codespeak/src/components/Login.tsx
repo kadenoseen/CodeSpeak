@@ -112,7 +112,7 @@ const Login: React.FC = () => {
   return (
     <div className={styles.loginContainer}>
       <h2 className={styles.title}>
-        {resetPassword ? "Reset Password" : isLogin ? "Login to CodeSpeak" : "Sign Up for CodeSpeak"}
+        {resetPassword ? "Reset Password" : isLogin ? "Sign Up" : "Login"}
       </h2>
       {showAlert && 
         <Alert
@@ -139,13 +139,37 @@ const Login: React.FC = () => {
             placeholder="Email"
             className={`${styles.inputField} ${showAlert ? styles.error : ''}`}
           />
-          <button type="submit" className={styles.submitButton}>Reset Password</button>
-          <button type="button" className={styles.switchButton} onClick={(e) => {
-            e.preventDefault();
-            setResetPassword(false)}
-          }>Back to Login</button>
+          <div className={styles.buttonContainer}>
+            <button type="button" className={styles.switchButton} onClick={(e) => {
+              e.preventDefault();
+              setResetPassword(false)}
+            }>Back</button>
+            <button type="submit" className={styles.submitButton} >Reset Password</button>
+          </div>
         </form>
-      ) : isLogin ? (
+      ) : isLogin ?  (
+        <form onSubmit={handleSignUp} className={styles.formContainer}>
+          <h2 className={styles.signUpSubtitle}>🎉 Get started with 500 free tokens! 🎉</h2>
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className={`${styles.inputField} ${showAlert ? styles.error : ''}`}
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            className={`${styles.inputField} ${showAlert ? styles.error : ''}`}
+          />
+          <button type="submit" className={styles.submitButton}>Create account</button>
+          <button type="button" className={styles.switchButton} onClick={toggleForm}>Already have an account?</button>
+        </form>
+      ) : (
         <form onSubmit={handleLogin} className={styles.formContainer}>
           <input
             type="text"
@@ -164,29 +188,8 @@ const Login: React.FC = () => {
             className={`${styles.inputField} ${showAlert ? styles.error : ''}`}
           />
           <button type="submit" className={styles.submitButton}>Login</button>
-          <button type="button" className={styles.switchButton} onClick={toggleForm}>Create an Account</button>
+          <button type="button" className={styles.switchButton} onClick={toggleForm}>Don't have an account yet?</button>
           <button type="button" className={styles.forgotPasswordButton} onClick={() => setResetPassword(true)}>Forgot Password</button>
-        </form>
-      ) : (
-        <form onSubmit={handleSignUp} className={styles.formContainer}>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            className={`${styles.inputField} ${showAlert ? styles.error : ''}`}
-          />
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className={`${styles.inputField} ${showAlert ? styles.error : ''}`}
-          />
-          <button type="submit" className={styles.submitButton}>Create account</button>
-          <button type="button" className={styles.switchButton} onClick={toggleForm}>Log in to existing account</button>
         </form>
       )}
     </div>

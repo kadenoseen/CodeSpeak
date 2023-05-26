@@ -49,7 +49,7 @@ const TokenDisplay: React.FC<TokenDisplayProps> = ({ onClick }) => {
     return (
       <div className={styles.tokenDisplay}>
         Loading...
-        <img src='token.png' alt="Token" className={styles.tokenImage} />
+        <img src='token.webp' alt="Token" className={styles.tokenImage} />
       </div>
     );
   }
@@ -64,7 +64,7 @@ const TokenDisplay: React.FC<TokenDisplayProps> = ({ onClick }) => {
 
   return (
     <div className={styles.tokenDisplay} onClick={onClick}>
-      <img src='token.png' alt="Token" className={styles.tokenImage} />
+      <img src='token.webp' alt="Token" className={styles.tokenImage} />
       {isSmallScreen ? "" : "Balance: "}{tokens}
     </div>
   )};

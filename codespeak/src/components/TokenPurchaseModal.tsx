@@ -6,7 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import Box from '@mui/material/Box';
 import { loadStripe } from '@stripe/stripe-js';
 import { AuthContext } from "../contexts/AuthContext";
-import { fontGrid } from '@mui/material/styles/cssUtils';
 
 interface TokenPurchaseModalProps {
   open: boolean;
@@ -18,7 +17,7 @@ interface TokenPurchaseModalProps {
 const stripePromise = loadStripe('pk_live_51NBlexCvoPTehrPBwpkaUdDKdtfk9myjOAmZ5yTVDFampl6a6ptINWJ2177a0GwdJpnFPaRMUuI8pfZdrf8VFWHg00SfPUeneh');
 
 const TokenPurchaseModal: React.FC<TokenPurchaseModalProps> = ({ open, onClose }) => {
-  const [value, setValue] = useState(100);
+  const [value, setValue] = useState(500);
   const isSmallScreen = useMediaQuery('(max-width:400px)');  // This will be true if the screen width is 400px or less
   const [processing, setProcessing] = useState(false);
 
@@ -79,7 +78,8 @@ const TokenPurchaseModal: React.FC<TokenPurchaseModalProps> = ({ open, onClose }
   return (
     <Dialog open={open} onClose={onClose} PaperProps={{ style: { borderRadius: 15 } }}>
       <Box sx={{
-        padding: 2,
+        paddingX: 2,
+        paddingY: 4,
         width: isSmallScreen ? 230 : 300, // Use the isSmallScreen variable to determine the width
         display: 'flex',
         flexDirection: 'column',
@@ -95,10 +95,10 @@ const TokenPurchaseModal: React.FC<TokenPurchaseModalProps> = ({ open, onClose }
           onChange={handleChange}
           aria-labelledby="discrete-slider"
           valueLabelDisplay="auto"
-          step={100}
+          step={500}
           marks
-          min={100}
-          max={2000}
+          min={500}
+          max={10000}
           sx={{ 
             width: '90%', // Adjust as needed
             color: '#2cb2a5',
@@ -116,7 +116,7 @@ const TokenPurchaseModal: React.FC<TokenPurchaseModalProps> = ({ open, onClose }
           {`${value} Tokens`}
         </Typography>
         <Typography variant="subtitle1" sx={{ fontWeight: 300 }}>
-          {`Price: $${value / 100}`}
+          {`💲${value / 500}.00`}
         </Typography>
         <Button 
           variant="contained" 
