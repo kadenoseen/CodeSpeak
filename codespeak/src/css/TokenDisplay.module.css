@@ -13,6 +13,7 @@
   height: 50px;
   min-width: 150px;
   transition: background-color 0.3s ease;
+  z-index: 3;
 }
 
 .tokenDisplay:hover {
@@ -40,8 +41,7 @@
   }
 }
 
-/** media queries for devices lower than 500px width.
-Must reduce size of tokenDisplay so that it is more in the top left corner */
+
 @media (max-width: 500px) {
   .tokenDisplay {
     top: 20px;
