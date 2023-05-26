@@ -9,7 +9,6 @@ const TokenUsage: React.FC<TokenUsageProps> = ({ code, mode }) => {
   const [tokenCount, setTokenCount] = useState(0);
 
   useEffect(() => {
-    // Update the token count when the code changes
     let newTokenCount;
     if(mode === 1){
       newTokenCount = Math.ceil(((code.length / 4) + 600 ) / 20);

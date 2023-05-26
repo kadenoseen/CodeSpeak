@@ -17,7 +17,7 @@ import './css/App.css';
 
 const App: React.FC = () => {
   const [code, setCode] = useState('');
-  const [language, setLanguage] = useState({ value: 'javascript', label: 'JavaScript' }); // By default javascript
+  const [language, setLanguage] = useState({ value: 'javascript', label: 'JavaScript' });
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState('');
   const { currentUser } = useContext(AuthContext);

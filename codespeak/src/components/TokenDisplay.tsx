@@ -16,11 +16,11 @@ const TokenDisplay: React.FC<TokenDisplayProps> = ({ onClick }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const currentUser = auth.currentUser; // Get the current user using Firebase's auth object
+  const currentUser = auth.currentUser;
 
   const userRef = ref(db, `users/${currentUser?.uid}/tokens`);
 
-  const isSmallScreen = useMediaQuery('(max-width:500px)'); // This will be true if the screen width is 500px or less
+  const isSmallScreen = useMediaQuery('(max-width:500px)');
 
   useEffect(() => {
     const handleData = (snap: any) => {

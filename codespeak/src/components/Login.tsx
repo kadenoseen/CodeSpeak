@@ -60,7 +60,6 @@ const Login: React.FC = () => {
       const firebaseError = error as FirebaseError;
       console.error(error);
       setShowAlert(true);
-      // Check for specific error codes from Firebase
       switch (firebaseError.code) {
         case "auth/email-already-in-use":
           setAlertMessage("The email address is already in use by another account.");

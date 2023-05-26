@@ -2,5 +2,5 @@
     width: -moz-min-content;
     width: 135px;
     text-align: left;
-    backface-visibility: hidden; /* Add backface-visibility property */
+    backface-visibility: hidden;
 }

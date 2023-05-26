@@ -11,14 +11,12 @@ interface TokenPurchaseModalProps {
   open: boolean;
   onClose: () => void;
 }
-//TEST KEY
-//const stripePromise = loadStripe('pk_test_51NBlexCvoPTehrPBp3s5mD8yrmzBBWVOZWO7J6SK6mj9Pxyn6N4fvOvTVd4sX2c7ZhfdlWkMFIo8UDUvpoaCLNsK00Ns90Ks53')
-//REAL KEY
+
 const stripePromise = loadStripe('pk_live_51NBlexCvoPTehrPBwpkaUdDKdtfk9myjOAmZ5yTVDFampl6a6ptINWJ2177a0GwdJpnFPaRMUuI8pfZdrf8VFWHg00SfPUeneh');
 
 const TokenPurchaseModal: React.FC<TokenPurchaseModalProps> = ({ open, onClose }) => {
   const [value, setValue] = useState(500);
-  const isSmallScreen = useMediaQuery('(max-width:400px)');  // This will be true if the screen width is 400px or less
+  const isSmallScreen = useMediaQuery('(max-width:400px)');
   const [processing, setProcessing] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
@@ -31,20 +29,17 @@ const TokenPurchaseModal: React.FC<TokenPurchaseModalProps> = ({ open, onClose }
   const handleClick = async () => {
     if(processing) return;
     setProcessing(true);
-    // Get the user's location
     const locationResponse = await fetch('https://ipapi.co/json/');
     const locationData = await locationResponse.json();
     const userCountry = locationData.country;
   
-    // Determine the currency based on user's location
-    let currency = 'usd';  // Default to USD
+    let currency = 'usd';
     if (userCountry === 'US') {
       currency = 'usd';
     } else if (userCountry === 'CA') {
       currency = 'cad';
     }
   
-    // Call your server to create the Checkout Session
     const response = await fetch("/create-checkout-session", { 
       method: 'POST', 
       headers: {
@@ -80,7 +75,7 @@ const TokenPurchaseModal: React.FC<TokenPurchaseModalProps> = ({ open, onClose }
       <Box sx={{
         paddingX: 2,
         paddingY: 4,
-        width: isSmallScreen ? 230 : 300, // Use the isSmallScreen variable to determine the width
+        width: isSmallScreen ? 230 : 300,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -100,7 +95,7 @@ const TokenPurchaseModal: React.FC<TokenPurchaseModalProps> = ({ open, onClose }
           min={500}
           max={10000}
           sx={{ 
-            width: '90%', // Adjust as needed
+            width: '90%',
             color: '#2cb2a5',
             '& .MuiSlider-track': {
               height: '8px',

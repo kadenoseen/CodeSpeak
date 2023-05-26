@@ -21,7 +21,7 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 20px; /* Increase top margin */
+  margin-top: 20px;
 }
 
 .signUpSubtitle {
@@ -44,10 +44,10 @@
 }
 
 .inputField {
-  margin: 10px 0; /* Increase vertical margin */
-  padding: 15px; /* Increase padding */
-  border-radius: 10px; /* Increase border radius */
-  border: 2px solid #ccc; /* Increase border width */
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
   font-size: 20px;
 }
 
@@ -57,38 +57,37 @@
 
 
 .submitButton {
-  margin-top: 10px; /* Increase top margin */
-  padding: 15px; /* Increase padding */
+  margin-top: 10px;
+  padding: 15px;
   border: none;
-  border-radius: 10px; /* Increase border radius */
+  border-radius: 10px;
   background-color: #2cb2a5;
   color: white;
   cursor: pointer;
-  font-size: 17px; /* Increase font size */
+  font-size: 17px;
 }
 
 
 .switchButton {
-  margin-top: 10px; /* Increase top margin */
-  padding: 15px; /* Increase padding */
+  margin-top: 10px;
+  padding: 15px;
   border: none;
-  border-radius: 10px; /* Increase border radius */
-  
+  border-radius: 10px;  
   background-color: #37a0dd;
   color: white;
   cursor: pointer;
-  font-size: 17px; /* Increase font size */
+  font-size: 17px;
 }
 
 .forgotPasswordButton {
-  margin-top: 10px; /* Increase top margin */
-  padding: 15px; /* Increase padding */
+  margin-top: 10px;
+  padding: 15px;
   border: none;
-  border-radius: 10px; /* Increase border radius */
+  border-radius: 10px;
   background-color: #d85b5b;
   color: white;
   cursor: pointer;
-  font-size: 17px; /* Increase font size */
+  font-size: 17px;
 }
 
 @media (hover: hover) and (pointer: fine) {

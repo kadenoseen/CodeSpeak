@@ -22,7 +22,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange, language, heig
       const newTokenCount = Math.ceil((newValue.length / 4) + 600);
   
       if(newTokenCount > 5500) {
-        const trimmedValue = newValue.slice(0, (5500 - 600) * 4); // Trim the value to fit the limit
+        const trimmedValue = newValue.slice(0, (5500 - 600) * 4);
         editor.setValue(trimmedValue);
       } else {
         setIsValueSet(newValue !== '');

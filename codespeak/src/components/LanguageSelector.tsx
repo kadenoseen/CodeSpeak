@@ -3,7 +3,6 @@ import React from 'react';
 import Select from 'react-select';
 import styles from '../css/LanguageSelector.module.css';
 
-// Import the language features from Monaco Editor that we want to support
 import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution';
 import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution';
 import 'monaco-editor/esm/vs/basic-languages/python/python.contribution';
@@ -21,7 +20,6 @@ import 'monaco-editor/esm/vs/basic-languages/html/html.contribution';
 import 'monaco-editor/esm/vs/basic-languages/css/css.contribution';
 import 'monaco-editor/esm/vs/basic-languages/yaml/yaml.contribution';
 
-// This is the list of options for the language dropdown
 const languageOptions = [
   { value: 'javascript', label: 'JavaScript' },
   { value: 'python', label: 'Python' },

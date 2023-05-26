@@ -1,6 +1,6 @@
 // OutputDisplay.tsx
 import React, { useEffect, useRef } from 'react';
-import styles from '../css/OutputDisplay.module.css';  // Create a new CSS module for styling
+import styles from '../css/OutputDisplay.module.css';
 
 interface OutputDisplayProps {
   result: string;

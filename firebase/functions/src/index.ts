@@ -19,10 +19,9 @@ export const onUserCreated = functions.auth.user().onCreate(async (user) => {
     console.error(`Error: Failed to create user document. ${error as string}`);
     throw new functions.https.HttpsError('internal', 'Failed to create user document');
   }
-  // Define message for SendGrid email
   const msg = {
     to: email,
-    from: 'welcome@codespeak.app', // Your verified sender
+    from: 'welcome@codespeak.app',
     subject: 'Welcome to CodeSpeak!',
     text: `
     Hello ${email},
@@ -64,7 +63,7 @@ export const onUserCreated = functions.auth.user().onCreate(async (user) => {
   `,
   };
 
-  // Send the email
+  
   sgMail
     .send(msg)
     .then(() => {
