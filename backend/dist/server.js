@@ -98,9 +98,9 @@ app.post('/webhook', body_parser_1.default.raw({ type: 'application/json' }), (r
         // If uid or amount does not exist, throw an error
         if (!uid || !amount)
             throw new Error('Missing client reference id or amount');
-        console.log("ADDING TOKENS TO USER", uid, amount);
+        console.log("ADDING TOKENS TO USER", uid, amount * 5);
         // Call the addTokens function to add the purchased tokens to the user's account
-        yield addTokens(uid, amount);
+        yield addTokens(uid, amount * 5);
     }
     // Send a response indicating that the webhook has been received
     res.json({ received: true });
@@ -256,9 +256,9 @@ app.post('/create-checkout-session', (req, res) => __awaiter(void 0, void 0, voi
                     product_data: {
                         name: 'CodeSpeak Tokens', // Name the product for this transaction
                     },
-                    unit_amount: 1, // Set the price per unit (in cents)
+                    unit_amount: (amount * 0.002) * 100, // Set the price per unit (in cents)
                 },
-                quantity: amount, // Set the quantity to be purchased
+                quantity: 1, // Set the quantity to be purchased
             },
         ],
         client_reference_id: uid,
