@@ -5,6 +5,13 @@
   animation: fadeIn 1s ease-in-out;
 }
 
+.title {
+  font-weight: 100;
+  font-size: 40px;
+  margin-top: -30px;
+  margin-bottom: 30px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -112,7 +112,7 @@ const Login: React.FC = () => {
   return (
     <div className={styles.loginContainer}>
       <h2 className={styles.title}>
-        {resetPassword ? "Reset Password" : isLogin ? "Sign Up for CodeSpeak" : "Login to CodeSpeak"}
+        {resetPassword ? "Reset Password" : isLogin ? "Sign Up" : "Login"}
       </h2>
       {showAlert && 
         <Alert

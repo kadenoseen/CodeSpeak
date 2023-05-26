@@ -1,71 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { Suspense, useState, useContext, lazy } from 'react';
 import Logo from './components/Logo';
-import CodeEditor from './components/CodeEditor';
-import SubmitButton from './components/SubmitButton';
-import LanguageSelector from './components/LanguageSelector';
-import OutputDisplay from './components/OutputDisplay';
 import { AuthContext } from "./contexts/AuthContext";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
-import TokenDisplay from './components/TokenDisplay';
-import TokenPurchaseModal from './components/TokenPurchaseModal';
-import ConfirmTokensModal from './components/ConfirmTokensModal';
-import SwitchMode from './components/SwitchMode';
-import InfoButton from './components/InfoButton';
 import './css/App.css';
 
-// Import the language features from Monaco Editor that we want to support
-import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution';
-import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution';
-import 'monaco-editor/esm/vs/basic-languages/python/python.contribution';
-import 'monaco-editor/esm/vs/basic-languages/java/java.contribution';
-import 'monaco-editor/esm/vs/basic-languages/cpp/cpp.contribution';
-import 'monaco-editor/esm/vs/basic-languages/csharp/csharp.contribution';
-import 'monaco-editor/esm/vs/basic-languages/php/php.contribution';
-import 'monaco-editor/esm/vs/basic-languages/ruby/ruby.contribution';
-import 'monaco-editor/esm/vs/basic-languages/go/go.contribution';
-import 'monaco-editor/esm/vs/basic-languages/rust/rust.contribution';
-import 'monaco-editor/esm/vs/basic-languages/swift/swift.contribution';
-import 'monaco-editor/esm/vs/basic-languages/r/r.contribution';
-import 'monaco-editor/esm/vs/basic-languages/shell/shell.contribution';
-import 'monaco-editor/esm/vs/basic-languages/sql/sql.contribution';
-import 'monaco-editor/esm/vs/basic-languages/html/html.contribution';
-import 'monaco-editor/esm/vs/basic-languages/css/css.contribution';
-import 'monaco-editor/esm/vs/basic-languages/xml/xml.contribution';
-import 'monaco-editor/esm/vs/basic-languages/markdown/markdown.contribution';
-import 'monaco-editor/esm/vs/basic-languages/yaml/yaml.contribution';
-import 'monaco-editor/esm/vs/basic-languages/perl/perl.contribution';
-
-
-// This is the list of options for the language dropdown
-const languageOptions = [
-  { value: 'javascript', label: 'JavaScript' },
-  { value: 'python', label: 'Python' },
-  { value: 'typescript', label: 'TypeScript' },
-  { value: 'html', label: 'HTML' },
-  { value: 'css', label: 'CSS' },
-  { value: 'java', label: 'Java' },
-  { value: 'cpp', label: 'C++' },
-  { value: 'csharp', label: 'C#' },
-  { value: 'php', label: 'PHP' },
-  { value: 'ruby', label: 'Ruby' },
-  { value: 'go', label: 'Go' },
-  { value: 'rust', label: 'Rust' },
-  { value: 'swift', label: 'Swift' },
-  { value: 'r', label: 'R' },
-  { value: 'bash', label: 'Bash' },
-  { value: 'shell', label: 'Shell' },
-  { value: 'sql', label: 'SQL' },
-  { value: 'xml', label: 'XML' },
-  { value: 'markdown', label: 'Markdown' },
-  { value: 'yaml', label: 'YAML' },
-  { value: 'perl', label: 'Perl' },
-];
+const CodeEditor = lazy(() => import('./components/CodeEditor'));
+const SubmitButton = lazy(() => import('./components/SubmitButton'));
+const LanguageSelector = lazy(() => import('./components/LanguageSelector'));
+const OutputDisplay = lazy(() => import('./components/OutputDisplay'));
+const Logout = lazy(() => import("./components/Logout"));
+const TokenDisplay = lazy(() => import('./components/TokenDisplay'));
+const TokenPurchaseModal = lazy(() => import('./components/TokenPurchaseModal'));
+const ConfirmTokensModal = lazy(() => import('./components/ConfirmTokensModal'));
+const SwitchMode = lazy(() => import('./components/SwitchMode'));
+const InfoButton = lazy(() => import('./components/InfoButton'));
 
 
 const App: React.FC = () => {
   const [code, setCode] = useState('');
-  const [language, setLanguage] = useState(languageOptions[0]); // By default javascript
+  const [language, setLanguage] = useState({ value: 'javascript', label: 'JavaScript' }); // By default javascript
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState('');
   const { currentUser } = useContext(AuthContext);
@@ -111,7 +64,7 @@ const App: React.FC = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code: code, language: language.value, uid: currentUser?.uid }),
+      body: JSON.stringify({ code, language: language.value, uid: currentUser?.uid, mode }),
     })
       .then(response => response.json())
       .then(data => {
@@ -127,6 +80,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Logo src="logo.webp" />
+      <h1 className="title">CodeSpeak</h1>
       {currentUser ? (
         <>
         <div className="fadeIn">
@@ -136,7 +90,6 @@ const App: React.FC = () => {
           <div className="headingAndSelector">
             <h2 className="languageTitle">🌐 Language</h2>
             <LanguageSelector
-              options={languageOptions}
               value={language}
               onChange={handleLanguageChange}
             />
