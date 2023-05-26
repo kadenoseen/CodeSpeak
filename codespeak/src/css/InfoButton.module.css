@@ -1,0 +1,13 @@
+.infoButton {
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  @media (hover: hover) and (pointer: fine) {
+    .infoButton:hover {
+      transform: scale(1.1);
+      transition: transform 0.2s ease;
+    }
+  }

@@ -2,17 +2,7 @@ import { useEffect, useState, createContext } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { getDatabase } from '@firebase/database';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAitXTvJZQ6HbbNW82B2S0StaAJ45o_SJE",
-  authDomain: "codespeak-387722.firebaseapp.com",
-  projectId: "codespeak-387722",
-  storageBucket: "codespeak-387722.appspot.com",
-  messagingSenderId: "895133804230",
-  appId: "1:895133804230:web:0706fe71f56ffc99e9d9c7",
-  measurementId: "G-D3T6X5CJH9",
-  databaseURL: "https://codespeak-387722-default-rtdb.firebaseio.com"
-};
+import { firebaseConfig } from './FirebaseConfig';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

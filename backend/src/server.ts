@@ -86,6 +86,7 @@ interface SubmitRequestBody {
   code: string;
   language: string;
   userId: string;
+  mode: number;
 }
 
 // Serve static files from the React app
@@ -105,11 +106,14 @@ app.listen(port, () => {
 app.post('/submit', async (req: Request<{}, {}, SubmitRequestBody & { uid: string }>, res: Response) => {
   try {
     // Destructure the incoming request body for code, language, and user id (uid)
-    const { code, language, uid } = req.body;
-    console.log(`User ID: ${uid}`);
+    const { code, language, uid, mode } = req.body;
+    console.log(`Mode: ${mode}`);
     // Calculate token count based on code length and some constants
-    const charged = Math.ceil((code.length / 3) + 350);
-    const tokenCount = Math.ceil(((code.length / 3) + 350 ) / 35);
+    const charged = Math.ceil((code.length / 4) + 600);
+    let tokenCount = Math.ceil(((code.length / 4) + 600 ) / 20);
+    if(mode === 2){
+      tokenCount = Math.ceil(tokenCount / 5);
+    }
     console.log(`Charged token count: ${charged}`);
     // Try to deduct the calculated token count from the user's account
     try {
@@ -129,7 +133,12 @@ app.post('/submit', async (req: Request<{}, {}, SubmitRequestBody & { uid: strin
     let codeSpeak;
     try {
       // Attempt to translate the submitted code
-      codeSpeak = await translateCode(code, language);
+      if(mode === 1){
+        codeSpeak = await translateCode(code, language, "gpt-4");
+      }else {
+        codeSpeak = await translateCode(code, language, "gpt-3.5-turbo");
+      }
+      
     } catch (error) {
       console.log(error);
       // If an error occurs during translation, refund the tokens back to the user
@@ -167,13 +176,13 @@ const systemMessage: string = "Transform code to spoken language, 'CodeSpeak'. \
 
 
 // Asynchronous function to translate code using OpenAI
-async function translateCode(code: string, language: string): Promise<string> {
+async function translateCode(code: string, language: string, model: string): Promise<string> {
   
   // Use OpenAI's createChatCompletion method to translate the provided code
   // The method takes an object that specifies the model (in this case "gpt-4") and a series of messages
   // The system message gives the model instructions, and the user message contains the code to be translated
   const completion = await openai.createChatCompletion({
-    model: "gpt-4",
+    model: model,
     messages: [{role: "system", content: systemMessage}, { role: "user", content: `Convert the following ${language} code: ${code}`}],
   })
 

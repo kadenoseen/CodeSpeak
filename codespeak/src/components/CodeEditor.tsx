@@ -19,10 +19,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange, language, heig
   const editorDidMount: EditorDidMount = (editor: monacoEditor.IStandaloneCodeEditor, monaco: any) => {
     editor.onDidChangeModelContent((event: monacoEditor.IModelContentChangedEvent) => {
       const newValue = editor.getValue();
-      const newTokenCount = Math.ceil((newValue.length / 3) + 350);
+      const newTokenCount = Math.ceil((newValue.length / 4) + 600);
   
-      if(newTokenCount > 6650) {
-        const trimmedValue = newValue.slice(0, (6650 - 350) * 3); // Trim the value to fit the limit
+      if(newTokenCount > 5500) {
+        const trimmedValue = newValue.slice(0, (5500 - 600) * 4); // Trim the value to fit the limit
         editor.setValue(trimmedValue);
       } else {
         setIsValueSet(newValue !== '');
@@ -31,7 +31,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange, language, heig
       }
     });
   };
-  
+
 
   useEffect(() => {
     setEditorValue(value);
@@ -57,7 +57,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ value, onChange, language, heig
           language={language}
           theme="vs"
           value={editorValue}
-          onChange={() => {}} // Make onChange a no-op
+          onChange={() => {}}
           editorDidMount={editorDidMount}
           options={{
             scrollbar: {

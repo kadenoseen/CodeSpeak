@@ -17,6 +17,7 @@ CodeSpeak is an intuitive web-based application designed to convert inputted cod
 
 - **Code Input:** Allows users to input any code snippet into the provided text editor.
 - **Language Selection:** Users can choose the language of the code they are inputting for accurate translations.
+- **Powerful/Fast Mode Options:** Users can choose between powerful mode (pros: highest quality responses, cons: slower and uses more tokens) and fast mode (pros: fast and uses 5x less tokens, cons: lower quality output)
 - **Real-time Feedback:** Users receive a human-readable interpretation of their code's logic upon submission.
 - **Accounts:** Users can create an account, login and reset their password
 - **Tokens:** Users are provided with 200 tokens to start off with to test out the application

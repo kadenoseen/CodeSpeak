@@ -5,3 +5,4 @@ TODO
 /backend/.gcloudignore
 /codespeak/node_modules
 /backend/src/service-account.json
+/codespeak/src/contexts/FirebaseConfig.ts
