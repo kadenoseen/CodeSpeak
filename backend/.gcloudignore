@@ -1,3 +1,2 @@
 .env
 .gitignore
-src/service-account.json

@@ -89,7 +89,7 @@ const App: React.FC = () => {
     if(submitting || code.length < 5) return;
     console.log(currentUser?.uid);
     setSubmitting(true);
-    fetch('http://localhost:3001/submit', {
+    fetch('/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

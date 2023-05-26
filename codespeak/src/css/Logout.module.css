@@ -11,6 +11,7 @@
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     cursor: pointer;
+    z-index: 3;
     backface-visibility: hidden; /* Add backface-visibility property */
     transition: background-color 0.3s ease;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -22,9 +23,6 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
-/** media queries for devices lower than 500px width.
- * Must reduce size of logout so that it is more in the top right corner */
 
 @media (max-width: 500px) {
   .logoutButton {
