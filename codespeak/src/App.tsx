@@ -1,19 +1,18 @@
-import React, { Suspense, useState, useContext, lazy } from 'react';
+import React, { useState, useContext } from 'react';
 import Logo from './components/Logo';
+import CodeEditor from './components/CodeEditor';
+import SubmitButton from './components/SubmitButton';
+import LanguageSelector from './components/LanguageSelector';
+import OutputDisplay from './components/OutputDisplay';
 import { AuthContext } from "./contexts/AuthContext";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
+import TokenDisplay from './components/TokenDisplay';
+import TokenPurchaseModal from './components/TokenPurchaseModal';
+import ConfirmTokensModal from './components/ConfirmTokensModal';
+import SwitchMode from './components/SwitchMode';
+import InfoButton from './components/InfoButton';
 import './css/App.css';
-
-const CodeEditor = lazy(() => import('./components/CodeEditor'));
-const SubmitButton = lazy(() => import('./components/SubmitButton'));
-const LanguageSelector = lazy(() => import('./components/LanguageSelector'));
-const OutputDisplay = lazy(() => import('./components/OutputDisplay'));
-const Logout = lazy(() => import("./components/Logout"));
-const TokenDisplay = lazy(() => import('./components/TokenDisplay'));
-const TokenPurchaseModal = lazy(() => import('./components/TokenPurchaseModal'));
-const ConfirmTokensModal = lazy(() => import('./components/ConfirmTokensModal'));
-const SwitchMode = lazy(() => import('./components/SwitchMode'));
-const InfoButton = lazy(() => import('./components/InfoButton'));
 
 
 const App: React.FC = () => {

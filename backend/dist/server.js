@@ -46,6 +46,7 @@ const path_1 = __importDefault(require("path"));
 const admin = __importStar(require("firebase-admin"));
 const service_account_json_1 = __importDefault(require("./service-account.json")); // get service account from service-account.json
 const stripe_1 = require("stripe");
+const systemMessage_1 = require("./systemMessage");
 // Initialize Firebase Admin SDK with service account and database URL
 admin.initializeApp({
     credential: admin.credential.cert(service_account_json_1.default),
@@ -179,12 +180,6 @@ const configuration = new openai_1.Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new openai_1.OpenAIApi(configuration);
-const systemMessage = "Transform code to spoken language, 'CodeSpeak'. \
-  For syntax, map basic operators to phrases: '==', 'if', 'for'. \
-  Name variables based on function: 'i' could be 'index'. \
-  Describe flow, hierarchy, and error handling using phrases. \
-  Use analogies for complex ideas rather than including code snippets.\
-  Ensure clarity and understanding. If no code is provided, tell a joke.";
 // Asynchronous function to translate code using OpenAI
 function translateCode(code, language, model) {
     var _a, _b, _c;
@@ -194,7 +189,7 @@ function translateCode(code, language, model) {
         // The system message gives the model instructions, and the user message contains the code to be translated
         const completion = yield openai.createChatCompletion({
             model: model,
-            messages: [{ role: "system", content: systemMessage }, { role: "user", content: `Convert the following ${language} code: ${code}` }],
+            messages: [{ role: "system", content: systemMessage_1.systemMessage }, { role: "user", content: `Convert the following ${language} code: ${code}` }],
         });
         // Log the number of tokens used by the prompt and in total
         const tokensUsed = (_a = completion.data.usage) === null || _a === void 0 ? void 0 : _a.total_tokens;
